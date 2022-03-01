@@ -162,7 +162,11 @@ impl BuildInfo {
 fn cargo_metadata(config: &GenerateConfig, cargo_toml: &Path) -> Result<Metadata, Error> {
     let mut cmd = cargo_metadata::MetadataCommand::new();
     let mut other_options = config.other_metadata_options.clone();
-    other_options.push("--locked".into());
+
+    if cargo_toml.join("Cargo.lock").exists() {
+        other_options.push("--locked".into());
+    }
+
     cmd.manifest_path(&cargo_toml)
         .other_options(&*other_options);
     cmd.exec().map_err(|e| {
