@@ -174,7 +174,7 @@ fn cargo_metadata(config: &GenerateConfig, cargo_toml: &Path) -> Result<Metadata
             "while retrieving metadata about {}: {}\nCommand: {:#?}",
             &cargo_toml.to_string_lossy(),
             e,
-            cmd,
+            cmd.cargo_command(),
         )
     })
 }
