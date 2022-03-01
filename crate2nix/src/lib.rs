@@ -171,9 +171,10 @@ fn cargo_metadata(config: &GenerateConfig, cargo_toml: &Path) -> Result<Metadata
         .other_options(&*other_options);
     cmd.exec().map_err(|e| {
         format_err!(
-            "while retrieving metadata about {}: {}",
+            "while retrieving metadata about {}: {}\nCommand: {:#?}",
             &cargo_toml.to_string_lossy(),
-            e
+            e,
+            cmd,
         )
     })
 }
